@@ -8,9 +8,9 @@ const getAllUsers = (callback) => {
 
 // Menambahkan user baru
 const createUser = (userData, callback) => {
-    const query = 'INSERT INTO user (name, email, password) VALUES (?, ?, ?)';
-    const { name, email, password } = userData;
-    db.query(query, [name, email, password], callback);
+    const query = 'INSERT INTO user (name) VALUES (?)';
+    const { name } = userData;
+    db.query(query, [name], callback);
 };
 
 // Mendapatkan user berdasarkan ID
@@ -21,8 +21,8 @@ const getUserById = (id, callback) => {
 
 // Mengupdate user berdasarkan ID
 const updateUserById = (id, userData, callback) => {
-    const query = 'UPDATE user SET name = ?, email = ?, password = ? WHERE id = ?';
-    const { name, email, password } = userData;
+    const query = 'UPDATE user SET name = ? WHERE id = ?';
+    const { name } = userData;
     db.query(query, [name, email, password, id], callback);
 };
 
