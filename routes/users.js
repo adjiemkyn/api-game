@@ -16,18 +16,18 @@ router.get('/', (req, res) => {
 
 // Menambahkan user baru
 router.post('/', (req, res) => {
-    const { name, email, password } = req.body;
-    if (!name || !email || !password) {
+    const { name } = req.body;
+    if (!name) {
         res.status(400).json({ error: 'All fields are required' });
         return;
     }
-    userService.createUser({ name, email, password }, (err, result) => {
+    userService.createUser({ name }, (err, result) => {
         if (err) {
             console.error(err);
             res.status(500).json({ error: 'Database error' });
             return;
         }
-        res.status(201).json({ id: result.insertId, name, email });
+        res.status(201).json({ id: result.insertId, name });
     });
 });
 
@@ -51,8 +51,8 @@ router.get('/:id', (req, res) => {
 // Mengupdate user berdasarkan ID
 router.put('/:id', (req, res) => {
     const { id } = req.params;
-    const { name, email, password } = req.body;
-    userService.updateUserById(id, { name, email, password }, (err, result) => {
+    const { name } = req.body;
+    userService.updateUserById(id, { name }, (err, result) => {
         if (err) {
             console.error(err);
             res.status(500).json({ error: 'Database error' });
